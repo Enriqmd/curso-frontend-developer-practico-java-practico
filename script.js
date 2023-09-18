@@ -6,8 +6,10 @@ const mobileMenu = document.querySelector('.mobile-menu');
 
 
 const iconCarMenu = document.querySelector('.navbar-shopping-cart');
-const aside = document.querySelector('.product-detail');
+const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
+const  productDetailContainer = document.querySelector('#productDetail');
+
 
 
 
@@ -15,9 +17,12 @@ const cardsContainer = document.querySelector('.cards-container');
 iconCarMenu.addEventListener('click', toggleAsideCar);
 menuEmail.addEventListener('click', toggleDesktopMenu);
 iconHamMenu.addEventListener('click', toggleMobileMenu);
+productDetailContainer.addEventListener('click', openProductDetailAside)
+productDetailContainer.addEventListener('click', clodeProductDetailAside)
 
-
-
+/*
+Funcion de desplgue del menu mobile, del shooping cart y menu nav bar
+*/
 
 function toggleDesktopMenu(){
     // const isAsideMenuClosed = aside.classList.contains('inactive');
@@ -27,7 +32,8 @@ function toggleDesktopMenu(){
     // };
     
     desktopMenu.classList.toggle('inactive');
-    aside.classList.add('inactive');
+    shoppingCartContainer.classList.add('inactive');
+    productDetailContainer.classList.add('inactive');
 }
 
 function toggleMobileMenu(){
@@ -38,7 +44,9 @@ function toggleMobileMenu(){
     // };
 
     mobileMenu.classList.toggle('inactive');
-    aside.classList.add('inactive');
+    shoppingCartContainer.classList.add('inactive');
+    productDetailContainer.classList.add('inactive');
+    
 }
 
 function toggleAsideCar(){
@@ -49,10 +57,25 @@ function toggleAsideCar(){
     // };
 
     
-    aside.classList.toggle('inactive');
+    shoppingCartContainer.classList.toggle('inactive');
     mobileMenu.classList.add('inactive');
     desktopMenu.classList.add('inactive');
+    productDetailContainer.classList.add('inactive');
 }
+
+/*
+Funcion para abrir los detalles del producto cuando le das click a la foto de los productos.
+*/
+
+function openProductDetailAside(){
+    productDetailContainer.classList.remove('inactive');
+    shoppingCartContainer.classList.add('inactive');
+};
+
+function clodeProductDetailAside(){
+    productDetailContainer.classList.add('inactive');
+   
+};
 
 
 const productList = [];
@@ -89,8 +112,8 @@ function renderProducts(arra){
         productCard.classList.add('product-card');
     
         const productImg = document.createElement('img');
-        productImg.classList.add('img-cover')
         productImg.setAttribute('src', Products.image);
+        productImg.addEventListener('click', openProductDetailAside);
     
         /*
         Estructura de product-info
